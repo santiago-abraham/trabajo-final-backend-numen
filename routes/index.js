@@ -2,11 +2,11 @@ const express = require('express');
 const { verEvento, crearEvento, actualizarEvento, borrarEvento } = require('../controllers/controller');
 const router = express.Router();
 
-// const{ validarId } = require("../middlewares/validarid");
+const{ validarId } = require("../middlewares/validarid");
 const { check } = require("express-validator")
 
 
-/* Get (ver evento). */
+// Get (ver evento)
 router.get('/ver', verEvento);
 
 //Post (crear evento)
@@ -18,20 +18,38 @@ router.post('/crear',
         .withMessage("El codigo debe cargarse")
         .isNumeric()
         .withMessage("El codigo debe ser de tipo numerico"),
-    check("marca")
+    check("nombre")
         .not()
         .isEmpty()
-        .withMessage("La marca debe cargarse"),
+        .withMessage("El nombre debe cargarse"),
+    check("tipo")
+        .not()
+        .isEmpty()
+        .withMessage("El tipo debe cargarse"),
+    check("lugar")
+        .not()
+        .isEmpty()
+        .withMessage("El lugar debe cargarse"),
+    check("fecha")
+        .not()
+        .isEmpty()
+        .withMessage("La fecha debe cargarse"),
     check("precio")
+        .not()
+        .isEmpty()
+        .withMessage("El precio debe cargarse")
         .isNumeric()
-        .withMessage("El precio debe ser de tipo numerico")
-        .isLength({min:0, max:5})
-        .withMessage("El precio ingresado debe ser de maximo 5 digitos")
+        .withMessage("El precio debe ser de tipo numerico"),
+    check("aireLibre")
+        .not()
+        .isEmpty()
+        .withMessage("Debe cargarse si es al aire libre")
+        .isBoolean()
 ] ,crearEvento);
 
 //Put (actualizar evento)
 router.put('/actualizar/:id', 
-// validarId,
+validarId,
 [
     check("codigo")
         .not()
@@ -39,20 +57,37 @@ router.put('/actualizar/:id',
         .withMessage("El codigo debe cargarse")
         .isNumeric()
         .withMessage("El codigo debe ser de tipo numerico"),
-    check("marca")
+    check("nombre")
         .not()
         .isEmpty()
-        .withMessage("La marca debe cargarse"),
+        .withMessage("El nombre debe cargarse"),
+    check("tipo")
+        .not()
+        .isEmpty()
+        .withMessage("El tipo debe cargarse"),
+    check("lugar")
+        .not()
+        .isEmpty()
+        .withMessage("El lugar debe cargarse"),
+    check("fecha")
+        .not()
+        .isEmpty()
+        .withMessage("La fecha debe cargarse"),
     check("precio")
+        .not()
+        .isEmpty()
+        .withMessage("El precio debe cargarse")
         .isNumeric()
-        .withMessage("El precio debe ser de tipo numerico")
-        .isLength({min:0, max:5})
-        .withMessage("El precio ingresado debe ser de maximo 5 digitos")
+        .withMessage("El precio debe ser de tipo numerico"),
+    check("aireLibre")
+        .not()
+        .isEmpty()
+        .withMessage("Debe cargarse si es al aire libre")
+        .isBoolean()
 ] ,actualizarEvento);
 
 //Delete (borrar evento)
-router.delete("/borrar/:id",// validarId,
-borrarEvento)
+router.delete("/borrar/:id", validarId, borrarEvento)
 
 
 module.exports = router;
