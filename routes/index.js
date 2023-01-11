@@ -1,5 +1,5 @@
 const express = require('express');
-const { verEvento, crearEvento, actualizarEvento, borrarEvento } = require('../controllers/controller');
+const { verEvento, crearEvento, actualizarEvento, borrarEvento, consultaClima } = require('../controllers/controller');
 const router = express.Router();
 
 const{ validarId } = require("../middlewares/validarid");
@@ -8,6 +8,7 @@ const { check } = require("express-validator")
 
 // Get (ver evento)
 router.get('/ver', verEvento);
+router.get('/clima/:ciudad', consultaClima)
 
 //Post (crear evento)
 router.post('/crear', 
@@ -26,10 +27,10 @@ router.post('/crear',
         .not()
         .isEmpty()
         .withMessage("El tipo debe cargarse"),
-    check("lugar")
+    check("Ciudad")
         .not()
         .isEmpty()
-        .withMessage("El lugar debe cargarse"),
+        .withMessage("La ciudad debe cargarse"),
     check("fecha")
         .not()
         .isEmpty()

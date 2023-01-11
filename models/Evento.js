@@ -15,7 +15,7 @@ const eventoSchema=new Schema({
         type: String,
         require: true
     },
-    lugar: {
+    ciudad: {
         type: String,
         require: true
     },

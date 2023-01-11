@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const {Evento} = require("../models/Evento");
+const axios = require("axios")
 
 const verEvento = async (req,res)=>{
     const evento=await Evento.find();
@@ -41,4 +42,13 @@ const borrarEvento = async(req, res) => {
     }
 } 
 
-module.exports={verEvento, crearEvento, actualizarEvento, borrarEvento}
+const consultaClima = async (req, res) => {
+    try {
+        const respuesta = await axios.get("https://api.openweathermap.org/data/2.5/weather?q="+req.params.ciudad+",ar&appid=53bd2ae65578e4fadb52e031aa908346&units=metric")
+        res.json({data: respuesta.data, status: respuesta.status})
+    } catch (error) {
+        res.json({data: error.response.data, status: error.response.status})
+    }
+}
+
+module.exports={verEvento, crearEvento, actualizarEvento, borrarEvento, consultaClima}
