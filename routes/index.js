@@ -66,10 +66,10 @@ validarId,
         .not()
         .isEmpty()
         .withMessage("El tipo debe cargarse"),
-    check("lugar")
+    check("ciudad")
         .not()
         .isEmpty()
-        .withMessage("El lugar debe cargarse"),
+        .withMessage("la ciudad debe cargarse"),
     check("fecha")
         .not()
         .isEmpty()
